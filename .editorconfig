@@ -2,7 +2,7 @@
 root = true
 charset = utf-8
 
-[src/**.{tsx,css}]
+[src/**.{tsx,css,sass}]
 indent_size = 2
 indent_style = tab
 tab_width = 2
