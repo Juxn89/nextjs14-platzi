@@ -1,9 +1,21 @@
-import React from 'react'
+const getProducts = async () => {
+	const response = await fetch(`${process.env.SHOPIFY_HOSTNAME}/admin/api/2023-10/products.json`, {
+		headers: {
+			'X-Shopify-Access-Token': process.env.SHOPIFY_API_KEY || ''
+		}
+	})
 
-export const MainProducts = () => {
+	const data = await response.json()
+	return data;
+}
+
+export const MainProducts = async () => {
+	const products = await getProducts()
+
+	console.log(products)
   return (
     <section>
-      <h1>MainProducts</h1>
+      <h1>Main Products</h1>
     </section>
   )
 }
