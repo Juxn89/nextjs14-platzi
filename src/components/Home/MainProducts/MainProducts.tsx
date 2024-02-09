@@ -1,23 +1,6 @@
 import Image from 'next/image'
-import { IProducts } from './Products.interface';
 import styles from './MainProducts.module.sass'
-
-const getProducts = async (): Promise<IProducts[]> => {
-	try {
-		const response = await fetch(`${process.env.SHOPIFY_HOSTNAME}/admin/api/2023-10/products.json`, {
-			headers: {
-				'X-Shopify-Access-Token': process.env.SHOPIFY_API_KEY || ''
-			}
-		})
-
-		const { products }: { products: IProducts[] } = await response.json()
-
-		return products;
-	} catch (error) {
-		console.error('getProducts', error)
-		return []
-	}
-}
+import { getProducts } from '@/services/shopify'
 
 export const MainProducts = async () => {
 	const products = await getProducts()
