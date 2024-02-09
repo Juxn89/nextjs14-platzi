@@ -3,7 +3,6 @@ import { IProducts } from './Products.interface';
 import styles from './MainProducts.module.sass'
 
 const getProducts = async (): Promise<IProducts[]> => {
-	throw new Error('Error')
 	try {
 		const response = await fetch(`${process.env.SHOPIFY_HOSTNAME}/admin/api/2023-10/products.json`, {
 			headers: {

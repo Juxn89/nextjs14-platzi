@@ -1,8 +1,8 @@
 export default function Layout({children}: { children: React.ReactNode }) {
-    return(
-        <main>
-            <nav>Categories</nav>
-            { children }
-        </main>
-    )
+	return(
+		<main>
+			<nav>Categories</nav>
+			{ children }
+		</main>
+	)
 }
