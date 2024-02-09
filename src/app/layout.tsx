@@ -1,6 +1,6 @@
 import { Roboto } from 'next/font/google'
-import { Header } from "@/components/Shared/Header";
 import { Footer } from '@/components/Shared/Footer';
+import { Header } from "@/components/Shared/Header";
 import '@/sass/globals.sass'
 
 // https://www.fontpair.co/all
