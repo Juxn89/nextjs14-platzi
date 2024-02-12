@@ -26,3 +26,18 @@ export const getCollections = async (): Promise<TransformedCollections[] | []> =
 		return [];
 	}
 }
+
+export const getProductsByCollection = async (id: number) => {
+	try {
+		const respose = await fetch(shopifyURLs.collections.product(id), {
+			headers: {
+				'X-Shopify-Access-Token': env.SHOPIFY_API_KEY
+			}
+		});
+
+		const { products } = await respose.json()
+		return products;
+	} catch (error) {
+
+	}
+}
