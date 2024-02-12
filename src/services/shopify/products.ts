@@ -3,19 +3,45 @@ import { shopifyURLs } from "./urls";
 import { env } from "@/config/env";
 
 // Shopify DOCS: https://shopify.dev/docs/api/admin-rest/2023-10/resources/smartcollection
-export const getProducts = async (): Promise<IProducts[]> => {
+export const getProducts = async (id?: string): Promise<ProductType[]> => {
 	try {
-		const response = await fetch(shopifyURLs.products.all, {
+		const apiUrl = id ? `${shopifyURLs.products.byId(id)}` : shopifyURLs.products.all;
+		const response = await fetch(apiUrl, {
 			headers: {
 				'X-Shopify-Access-Token': env.SHOPIFY_API_KEY
 			}
 		})
 
-		const { products }: { products: IProducts[] } = await response.json()
+		const products = await TransformResponse(response)
 
-		return products;
+		const transformedProduct: ProductType[] = products.map(product => {
+			return {
+				id: product.id.toString(),
+				title: product.title,
+				description: product.body_html,
+				price: product.variants[0].price,
+				image: product.image.src,
+				handle: product.handle,
+				tags: product.tags,
+				quantity: product.variants[0].inventory_quantity,
+				gql_id: product.admin_graphql_api_id
+			}
+		})
+
+		return transformedProduct;
 	} catch (error) {
 		console.error('getProducts', error)
 		return []
 	}
+}
+
+const TransformResponse = async (response: Response): Promise<IProducts[]> => {
+	const data = await response.json()
+	const { products } = data;
+	const { product } = data;
+
+	if(product)
+		return [product]
+
+	return products
 }
