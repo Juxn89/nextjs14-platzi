@@ -14,6 +14,6 @@ export default async function Categories(props: Categories) {
 	const products = await getProducts();
 
 	return(
-		<ProductsWrapper products={products }/>
+		<ProductsWrapper products={products}/>
 	)
 }
