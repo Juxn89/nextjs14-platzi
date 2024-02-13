@@ -45,3 +45,16 @@ const TransformResponse = async (response: Response): Promise<IProducts[]> => {
 
 	return products
 }
+
+export const getMainProducts = async () => {
+	const response = await fetch(shopifyURLs.products.mainProducts, {
+	  headers: new Headers({
+		'X-Shopify-Access-Token': env.SHOPIFY_API_KEY
+	  }),
+		next: { revalidate: 600 }
+	})
+
+	const {products} = await response.json()
+
+	return products
+  }
