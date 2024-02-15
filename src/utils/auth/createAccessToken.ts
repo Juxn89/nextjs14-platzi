@@ -8,14 +8,17 @@ export const createAccessToken = async (email: string, password: string) => {
 	const graphqlClient = GraphQLClientSingleton.getInstance().getClient()
 	const { customerAccessTokenCreate } = await graphqlClient.request( customerAccessTokenCreateMutation, { email, password } )
 
-	const { accesstoken, expireAt } = customerAccessTokenCreate?.customerAccessToken
+	console.log(customerAccessTokenCreate)
+	const { accessToken, expireAt } = customerAccessTokenCreate?.customerAccessToken
 
-	if(accesstoken) {
-		cookiesStore.set('accessToken', accesstoken, {
+	if(accessToken) {
+		cookiesStore.set('accessToken', accessToken, {
 			path: '/',
 			expires: new Date(expireAt),
 			httpOnly: true,
 			sameSite: 'strict'
 		})
 	}
+
+	return accessToken
 }
