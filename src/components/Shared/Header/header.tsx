@@ -1,12 +1,12 @@
 import Link from "next/link"
 import styles from './Header.module.css'
 import { cookies } from "next/headers"
+import { validateAccessToken } from "@/utils/auth/validateAccessToken"
 
-export const Header = () => {
+export const Header = async () => {
 	console.log('Hello from Header (Server component)')
 
-	const cookiesStore = cookies()
-	const token = cookiesStore.get('accessToken')?.value
+	const customer = await validateAccessToken();
 
 	return(
 		<header>
@@ -22,7 +22,7 @@ export const Header = () => {
 						<li>Test</li>
 					</Link>
 				</ul>
-				{ token ? (<>Hello! 🙂</>) : <Link href='/login'>Login</Link> }
+				{ customer ? (<>Hello { customer.firstName }! 🙂</>) : <Link href='/login'>Login</Link> }
 			</nav>
 		</header>
 	)
