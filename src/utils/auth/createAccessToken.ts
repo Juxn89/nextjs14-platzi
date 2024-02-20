@@ -8,7 +8,7 @@ export const createAccessToken = async (email: string, password: string) => {
 	const graphqlClient = GraphQLClientSingleton.getInstance().getClient()
 	const { customerAccessTokenCreate } = await graphqlClient.request( customerAccessTokenCreateMutation, { email, password } )
 
-	console.log(customerAccessTokenCreate)
+	// console.log(customerAccessTokenCreate)
 	const { accessToken, expireAt } = customerAccessTokenCreate?.customerAccessToken
 
 	if(accessToken) {

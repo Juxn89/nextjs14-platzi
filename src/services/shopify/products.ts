@@ -13,7 +13,7 @@ export const getProducts = async (id?: string): Promise<ProductType[]> => {
 		})
 
 		const products = await TransformResponse(response)
-
+		
 		const transformedProduct: ProductType[] = products.map(product => {
 			return {
 				id: product.id.toString(),
@@ -24,7 +24,7 @@ export const getProducts = async (id?: string): Promise<ProductType[]> => {
 				handle: product.handle,
 				tags: product.tags,
 				quantity: product.variants[0].inventory_quantity,
-				gql_id: product.admin_graphql_api_id
+				gql_id: product.variants[0].admin_graphql_api_id
 			}
 		})
 

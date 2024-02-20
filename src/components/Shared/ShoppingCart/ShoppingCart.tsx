@@ -18,20 +18,23 @@ export default function ShoppingCart() {
     }
   };
 
-	const handleBuy = async () => {
-		try {
-			setIsBuying(true)
-			const checkoutUrl = await handleCreateCart(cart)
+  const handleBuy = async () => {
+    try {
+      setIsBuying(true);
 
-			if(!checkoutUrl)
-				throw new Error('Error creating checkout')
+      const checkoutUrl = await handleCreateCart(cart);
+      if(!checkoutUrl)
+				throw new Error('Error creating checkout');
 
-			localStorage.removeItem('cart')
-			window.location.href = checkoutUrl
-		} catch (error) {
-			console.error(error)
-		}
-	}
+      localStorage.removeItem('cart');
+      location.href = checkoutUrl;
+			
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsBuying(false);
+    }
+  }
 
   return (
     <div className={styles.ShoppingCart}>

@@ -42,20 +42,16 @@ export const handleCreateCart = async (items: CartItem[]) => {
 
   const graphqlClient = GraphQLClientSingleton.getInstance().getClient()
   const customer = await validateAccessToken()
-
   const variables = {
     input: {
-			lines: items.map(item => ({
-				merchandiseId: item.merchandiseId,
-				quantity: item.quantity
-			})),
       buyerIdentity: {
-				countryCode: "NI",
-        email: customer?.email,
         customerAccessToken: accesToken,
-				phone: customer?.phone
+        email: customer?.email
       },
-
+      lines: items.map(item => ({
+        merchandiseId: item.merchandiseId,
+        quantity: item.quantity
+      }))
     }
   }
 
@@ -66,8 +62,6 @@ export const handleCreateCart = async (items: CartItem[]) => {
       }
     }
   } = await graphqlClient.request(createCartMutation, variables)
-
-	const data = await graphqlClient.request(createCartMutation, variables)
 
   return cartCreate?.cart?.checkoutUrl
 }
