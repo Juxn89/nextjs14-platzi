@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "analyze": "cross-env ANALYZE=true next build",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
     "ai": "2.2.35",
@@ -22,10 +23,12 @@
     "zustand": "4.5.0"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "14.1.0",
     "@types/node": "20",
     "@types/react": "18",
     "@types/react-dom": "18",
-    "@types/sanitize-html": "^2.11.0",
+    "@types/sanitize-html": "2.11.0",
+    "cross-env": "7.0.3",
     "eslint": "8",
     "eslint-config-next": "14.1.0",
     "sass": "1.70.0",

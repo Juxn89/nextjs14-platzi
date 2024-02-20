@@ -1,7 +1,16 @@
 import { getCustomerOrders } from "@/services/shopify/graphql/customer";
 
+interface IOrdersInfo {
+	orders?: OrdersType[]
+}
+
+type OrdersType = {
+	orderNumber: string,
+}
+
 export default async function MyAccountPage() {
-  const ordersInfo = await getCustomerOrders();
+  const ordersInfo: IOrdersInfo = await getCustomerOrders();
+
   return (
     <div>
       <section>

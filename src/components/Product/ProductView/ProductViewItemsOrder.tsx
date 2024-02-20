@@ -1,5 +1,5 @@
 "use client";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useState, MouseEvent } from "react";
 import { FaCartShopping } from 'react-icons/fa6';
 import styles from "./ProductViewItemsOrder.module.sass";
 import { useShoppingCart } from "@/hooks/useShoppingCart";
@@ -30,7 +30,7 @@ export const ProductViewItemsOrder = ({ maxQuantity, product }: ProductViewItems
     setCounter(counter + 1);
   }
 
-	const handleAddToCart = (event) => {
+	const handleAddToCart = (event: MouseEvent) => {
 		event.preventDefault()
 		addToCart({
 			title: product.title,
